@@ -659,6 +659,79 @@ p {
     width: 100%;
 }
 
+a {
+    text-decoration: none !important;
+}
+
+.btn,
+.btn-primary,
+.btn-outline,
+.btn-submit,
+.cta-block .btn {
+    text-decoration: none !important;
+}
+
+.btn:hover,
+.btn-primary:hover,
+.btn-outline:hover,
+.btn-submit:hover,
+.cta-block .btn:hover {
+    text-decoration: none !important;
+}
+
+
+
+/* ============================================================
+   ХЛЕБНЫЕ КРОШКИ (BREADCRUMBS)
+   ============================================================ */
+.breadcrumbs {
+    background: #F8FAFC;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.breadcrumbs-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+}
+
+.breadcrumbs-wrapper a {
+    color: #64748B;
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s ease;
+}
+
+.breadcrumbs-wrapper a:hover {
+    color: #1E293B;
+    text-decoration: none;
+}
+
+.breadcrumbs-wrapper .separator {
+    color: #94A3B8;
+}
+
+.breadcrumbs-wrapper .current {
+    color: #64748B;
+    font-weight: 400;
+}
+
+/* Адаптивность для телефонов */
+@media (max-width: 480px) {
+    .breadcrumbs {
+        padding: 0.5rem 0;
+    }
+    .breadcrumbs-wrapper {
+        gap: 0.35rem;
+        font-size: 0.8rem;
+    }
+}
+
+
+
 /* АДАПТИВНОСТЬ */
 @media (max-width: 1024px) {
     .contacts-grid {
