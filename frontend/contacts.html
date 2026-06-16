@@ -1,1 +1,142 @@
 <!-- Контакты -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Контакты — Логистика B2B | Международные поставки</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="Логотип компании" class="logo-img"> <!-- Запросить Лого компании -->
+            </div>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О компании</a></li>
+                    <li><a href="services.html">Услуги</a></li>
+                    <li><a href="advantages.html">Преимущества</a></li>
+                    <li><a href="contacts.html" class="active">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+
+            <!-- Текст согласуется с заказчиком (ТЗ стр. 8, раздел 11) -->
+            <header class="page-header">
+                <h1>Контакты</h1>
+                <p><!-- Текст предоставляется заказчиком --></p>
+            </header>
+
+            <!-- Адреса, телефоны, e-mail предоставляются заказчиком (ТЗ стр. 9, раздел 15) -->
+            <div class="contacts-grid">
+
+                <!-- Карточка 1: Офис -->
+                <section class="contact-card">
+                    <h2>Офис</h2>
+                    <div class="detail">
+                        <strong>Адрес:</strong>
+                        <span><!-- Адрес предоставляется заказчиком --></span>
+                    </div>
+                    <div class="detail">
+                        <strong>Режим работы:</strong>
+                        <span><!-- Режим работы предоставляется заказчиком --></span>
+                    </div>
+                    <div class="detail">
+                        <strong>Телефон:</strong>
+                        <a href="#"><!-- Телефон предоставляется заказчиком --></a>
+                    </div>
+                    <div class="detail">
+                        <strong>Email:</strong>
+                        <a href="#"><!-- Email предоставляется заказчиком --></a>
+                    </div>
+                </section>
+
+                <!-- Карточка 2: Отдел продаж (опционально) -->
+                <section class="contact-card">
+                    <h2>Отдел продаж</h2>
+                    <div class="detail">
+                        <strong>Менеджер:</strong>
+                        <span><!-- Имя менеджера предоставляется заказчиком --></span>
+                    </div>
+                    <div class="detail">
+                        <strong>Телефон:</strong>
+                        <a href="#"><!-- Телефон предоставляется заказчиком --></a>
+                    </div>
+                    <div class="detail">
+                        <strong>Email:</strong>
+                        <a href="#"><!-- Email предоставляется заказчиком --></a>
+                    </div>
+                    <div class="detail">
+                        <strong>Telegram:</strong>
+                        <a href="#"><!-- Telegram предоставляется заказчиком --></a>
+                    </div>
+                </section>
+
+            </div><!-- /contacts-grid -->
+
+            <!-- ТЗ стр. 4, раздел 5: "карта проезда" -->
+            <section class="map-section">
+                <h2>Карта проезда</h2>
+                <div class="map-wrapper">
+                    <p>Схема проезда будет добавлена после согласования с заказчиком.</p>
+                    <!-- Карта встраивается через доступный картографический сервис (ТЗ стр. 9, раздел 15) -->
+                </div>
+            </section>
+
+            <section class="feedback-section" id="feedback">
+                <h2>Свяжитесь с нами</h2>
+                <p>Заполните форму, и мы ответим вам в ближайшее время.</p>
+            
+                <form class="feedback-form" action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">Имя</label>
+                        <input type="text" id="name" name="name" placeholder="Ваше имя" required />
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="contact">Контакт для связи</label>
+                        <input type="text" id="contact" name="contact" placeholder="Телефон или email" required />
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="message">Сообщение / Описание запроса</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Опишите ваш запрос..." required></textarea>
+                    </div>
+            
+                    <button type="submit" class="btn-submit">Отправить заявку</button>
+                </form>
+            </section>
+
+        </div><!-- /container -->
+    </main>
+
+    <!-- ===== Футер ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p class="footer-copy">&copy; 2026 <!-- Название компании предоставляется заказчиком -->. Все права защищены.</p>
+                </div>
+                <div class="footer-contacts">
+                    <p>
+                        <a href="#"><!-- Телефон предоставляется заказчиком --></a> |
+                        <a href="#"><!-- Email предоставляется заказчиком --></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>
