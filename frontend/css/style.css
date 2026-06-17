@@ -78,6 +78,7 @@ p {
     border: none;
     font-family: inherit;
     gap: 8px;
+    text-decoration: none !important;
 }
 
 .btn-primary {
@@ -90,6 +91,7 @@ p {
     background: #1D4ED8;
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+    text-decoration: none !important;
 }
 
 .btn-outline {
@@ -102,6 +104,32 @@ p {
     border-color: #2563EB;
     background: rgba(37, 99, 235, 0.05);
     transform: translateY(-2px);
+    text-decoration: none !important;
+}
+
+.btn-submit {
+    grid-column: 1 / -1;
+    padding: 0.9rem 2rem;
+    background: #2563EB;
+    color: white;
+    border: none;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+    max-width: 300px;
+    justify-self: center;
+    text-decoration: none !important;
+}
+
+.btn-submit:hover {
+    background: #1D4ED8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+    text-decoration: none !important;
 }
 
 /* HEADER / НАВИГАЦИЯ */
@@ -165,23 +193,84 @@ p {
 /* HERO (ГЛАВНАЯ) */
 .hero {
     background: linear-gradient(135deg, #F1F5F9 0%, #E6EEF7 100%);
-    padding: 5rem 0;
+    padding: 5rem 0 4.5rem;
     text-align: center;
     border-bottom: 1px solid #E2E8F0;
 }
 
 .hero-title {
-    font-size: 3.2rem;
+    font-size: 3.8rem;
+    font-weight: 700;
     max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto 0.5rem;
+    color: #0F172A;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
 }
 
 .hero-subtitle {
-    font-size: 1.25rem;
-    max-width: 640px;
-    margin: 1rem auto 2rem;
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0.5rem auto 1.5rem;
     color: #475569;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+.hero-description {
+    font-size: 1.15rem;
+    max-width: 650px;
+    margin: 0 auto 2rem;
+    color: #475569;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+.hero-btn {
+    font-size: 1.1rem;
+    padding: 1rem 2.8rem;
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.25);
+}
+
+.hero-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(37, 99, 235, 0.35);
+}
+
+/* ХЛЕБНЫЕ КРОШКИ (BREADCRUMBS) */
+.breadcrumbs {
+    background: #F8FAFC;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.breadcrumbs-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+}
+
+.breadcrumbs-wrapper a {
+    color: #64748B;
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s ease;
+}
+
+.breadcrumbs-wrapper a:hover {
+    color: #1E293B;
+    text-decoration: none;
+}
+
+.breadcrumbs-wrapper .separator {
+    color: #94A3B8;
+}
+
+.breadcrumbs-wrapper .current {
+    color: #64748B;
+    font-weight: 400;
 }
 
 /* СТРАНИЦА "КОНТАКТЫ" */
@@ -279,6 +368,19 @@ p {
 .contact-card .detail a:hover {
     color: #1D4ED8;
     text-decoration: underline;
+}
+
+/* Иконки в контактах */
+.contact-icon {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.detail-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    width: 24px;
+    text-align: center;
 }
 
 /* КАРТА ПРОЕЗДА */
@@ -398,27 +500,70 @@ p {
     color: #94A3B8;
 }
 
-.feedback-form .btn-submit {
-    grid-column: 1 / -1;
-    padding: 0.9rem 2rem;
-    background: #2563EB;
-    color: white;
-    border: none;
-    border-radius: 40px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: inherit;
-    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
-    max-width: 300px;
-    justify-self: center;
+/* СТРАНИЦА "УСЛУГИ" */
+.services-page {
+    padding: 1rem 0 2rem;
 }
 
-.feedback-form .btn-submit:hover {
-    background: #1D4ED8;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.service-card {
+    background: white;
+    padding: 1.75rem 1.5rem;
+    border-radius: 20px;
+    border: 1px solid #EFF3F8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.08);
+    border-color: #CBD5E1;
+}
+
+.service-card h3 {
+    font-size: 1.1rem;
+    color: #0F172A;
+    margin: 0 0 0.75rem 0;
+}
+
+.service-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+    flex: 1;
+}
+
+.service-list li {
+    padding: 0.35rem 0;
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.5;
+}
+
+.service-list li::before {
+    content: '✓';
+    color: #2563EB;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.service-btn {
+    width: 100%;
+    justify-content: center;
+    margin-top: auto;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
 }
 
 /* СТРАНИЦА "ПРЕИМУЩЕСТВА" */
@@ -436,9 +581,8 @@ p {
 
 .advantages-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-top: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
 }
 
 .advantage-card {
@@ -598,17 +742,56 @@ p {
     text-align: center;
 }
 
-
 .cta-block .btn {
     background: #2563EB;
     color: white;
     box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+    text-decoration: none !important;
 }
 
 .cta-block .btn:hover {
     background: #1D4ED8;
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+    text-decoration: none !important;
+}
+
+/* ИНФОГРАФИКА (ЦИФРЫ) */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.stat-item {
+    background: white;
+    padding: 2rem 1rem;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid #EFF3F8;
+    transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.08);
+    border-color: #CBD5E1;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2563EB;
+    line-height: 1.2;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #64748B;
+    max-width: 100%;
+    margin-top: 0.25rem;
 }
 
 /* ФУТЕР */
@@ -659,79 +842,6 @@ p {
     width: 100%;
 }
 
-a {
-    text-decoration: none !important;
-}
-
-.btn,
-.btn-primary,
-.btn-outline,
-.btn-submit,
-.cta-block .btn {
-    text-decoration: none !important;
-}
-
-.btn:hover,
-.btn-primary:hover,
-.btn-outline:hover,
-.btn-submit:hover,
-.cta-block .btn:hover {
-    text-decoration: none !important;
-}
-
-
-
-/* ============================================================
-   ХЛЕБНЫЕ КРОШКИ (BREADCRUMBS)
-   ============================================================ */
-.breadcrumbs {
-    background: #F8FAFC;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid #E2E8F0;
-}
-
-.breadcrumbs-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    font-size: 0.9rem;
-}
-
-.breadcrumbs-wrapper a {
-    color: #64748B;
-    text-decoration: none;
-    font-weight: 400;
-    transition: color 0.2s ease;
-}
-
-.breadcrumbs-wrapper a:hover {
-    color: #1E293B;
-    text-decoration: none;
-}
-
-.breadcrumbs-wrapper .separator {
-    color: #94A3B8;
-}
-
-.breadcrumbs-wrapper .current {
-    color: #64748B;
-    font-weight: 400;
-}
-
-/* Адаптивность для телефонов */
-@media (max-width: 480px) {
-    .breadcrumbs {
-        padding: 0.5rem 0;
-    }
-    .breadcrumbs-wrapper {
-        gap: 0.35rem;
-        font-size: 0.8rem;
-    }
-}
-
-
-
 /* АДАПТИВНОСТЬ */
 @media (max-width: 1024px) {
     .contacts-grid {
@@ -758,6 +868,21 @@ a {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.25rem;
+    }
+
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+
+    .advantages-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
     }
 }
 
@@ -795,11 +920,26 @@ a {
     }
     
     .hero {
-        padding: 3rem 0;
+        padding: 3.5rem 0 3rem;
     }
 
-    .advantages-grid {
-        gap: 1.25rem;
+    .hero-title {
+        font-size: 2.4rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+        padding: 0 0.5rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+        padding: 0 0.5rem;
+    }
+
+    .hero-btn {
+        font-size: 1rem;
+        padding: 0.85rem 2rem;
     }
 
     .contacts-grid {
@@ -862,6 +1002,19 @@ a {
     .process-section {
         padding: 2.5rem 0;
     }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .stat-item {
+        padding: 1.5rem 1rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
 }
 
 @media (max-width: 640px) {
@@ -881,6 +1034,41 @@ a {
 
     .process-step p {
         font-size: 0.85rem;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .advantages-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .service-card {
+        padding: 1.25rem 1rem;
+    }
+
+    .service-card h3 {
+        font-size: 1rem;
+    }
+
+    .service-list li {
+        font-size: 0.85rem;
+    }
+
+    .service-btn {
+        font-size: 0.9rem;
+        padding: 0.65rem 1.25rem;
+    }
+
+    .breadcrumbs {
+        padding: 0.5rem 0;
+    }
+    .breadcrumbs-wrapper {
+        gap: 0.35rem;
+        font-size: 0.8rem;
     }
 }
 
@@ -919,7 +1107,55 @@ a {
         font-size: 0.9rem;
     }
 
-    .advantages-grid {
-        grid-template-columns: 1fr;
+    .advantage-card {
+        padding: 1.25rem;
+    }
+
+    .advantage-card h3 {
+        font-size: 1rem;
+    }
+
+    .advantage-card p {
+        font-size: 0.85rem;
+    }
+
+    .hero {
+        padding: 2.5rem 0 2rem;
+    }
+
+    .hero-title {
+        font-size: 1.8rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.85rem;
+    }
+
+    .hero-description {
+        font-size: 0.85rem;
+    }
+
+    .hero-btn {
+        font-size: 0.9rem;
+        padding: 0.7rem 1.5rem;
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+    }
+
+    .stat-item {
+        padding: 1rem 0.75rem;
+    }
+
+    .stat-number {
+        font-size: 1.6rem;
+    }
+
+    .stat-label {
+        font-size: 0.8rem;
     }
 }
