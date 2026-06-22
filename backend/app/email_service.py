@@ -6,6 +6,14 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from app.config import settings
+import logging
+
+logger = logging.getLogger(__name__)
+
 def send_email(to_email: str, subject: str, body: str):
     try:
         if not settings.SMTP_HOST:
@@ -18,9 +26,15 @@ def send_email(to_email: str, subject: str, body: str):
         msg['Subject'] = subject
         msg.attach(MIMEText(body, 'plain', 'utf-8'))
         
-        with smtplib.SMTP_SSL(settings.SMTP_HOST, settings.SMTP_PORT) as server:
-            server.login(settings.SMTP_USER, settings.SMTP_PASSWORD)
-            server.send_message(msg)
+        if settings.SMTP_PORT == 587:
+            with smtplib.SMTP(settings.SMTP_HOST, settings.SMTP_PORT) as server:
+                server.starttls() 
+                server.login(settings.SMTP_USER, settings.SMTP_PASSWORD)
+                server.send_message(msg)
+        else:
+            with smtplib.SMTP_SSL(settings.SMTP_HOST, settings.SMTP_PORT) as server:
+                server.login(settings.SMTP_USER, settings.SMTP_PASSWORD)
+                server.send_message(msg)
         
         logger.info(f"Письмо отправлено на {to_email}")
         return True
