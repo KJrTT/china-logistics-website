@@ -1,33 +1,41 @@
-from pydantic import BaseModel, EmailStr, Field, validator
+from pydantic import BaseModel, validator
 from datetime import datetime
 from typing import Optional
 import re
 
 class FeedbackCreate(BaseModel):
-    name: str = Field(..., min_length=2, max_length=100, description="Имя")
-    contact: str = Field(..., min_length=5, max_length=100, description="Телефон или email")
-    message: str = Field(..., min_length=10, max_length=5000, description="Сообщение")
+    name: str
+    contact: str
+    message: str
     
     @validator('name')
     def validate_name(cls, v):
-        if len(v.strip()) < 2:
+        if not v or len(v.strip()) < 2:
             raise ValueError('Имя должно содержать минимум 2 символа')
         return v.strip()
     
     @validator('contact')
     def validate_contact(cls, v):
         v = v.strip()
-        if len(v) < 5:
+        
+        if not v or len(v) < 5:
             raise ValueError('Контакт должен содержать минимум 5 символов')
-        is_email = '@' in v and '.' in v
-        is_phone = any(re.findall(r'\d', v)) and len(re.findall(r'\d', v)) >= 10
+        
+        email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        phone_pattern = r'^(\+7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$'
+        phone_pattern_simple = r'^[\+\d\s\-\(\)]{10,20}$'
+        
+        is_email = re.match(email_pattern, v) is not None
+        is_phone = re.match(phone_pattern, v) is not None or re.match(phone_pattern_simple, v) is not None
+        
         if not is_email and not is_phone:
             raise ValueError('Введите корректный email или номер телефона')
+        
         return v
     
     @validator('message')
     def validate_message(cls, v):
-        if len(v.strip()) < 10:
+        if not v or len(v.strip()) < 10:
             raise ValueError('Сообщение должно содержать минимум 10 символов')
         return v.strip()
 

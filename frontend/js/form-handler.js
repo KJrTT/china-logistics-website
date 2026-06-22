@@ -1,15 +1,12 @@
-// form-handler.js — отправка формы на бэкенд
-
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('.feedback-form');
     
     if (!form) return;
-    const getApiUrl = () => {
-        // Если мы на локальном сервере (localhost или 127.0.0.1)
+
+    const getApiUrl = function() {
         if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
             return 'http://127.0.0.1:8000/api/feedback/';
         }
-        // Если мы на Render (или любом другом продакшен-сервере)
         return 'https://china-logistics-website.onrender.com/api/feedback/';
     };
     
@@ -18,26 +15,36 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
+        const nameInput = document.getElementById('name');
+        const contactInput = document.getElementById('contact');
+        const messageInput = document.getElementById('message');
+        
         const formData = {
-            name: document.getElementById('name').value.trim(),
-            contact: document.getElementById('contact').value.trim(),
-            message: document.getElementById('message').value.trim()
+            name: nameInput.value.trim(),
+            contact: contactInput.value.trim(),
+            message: messageInput.value.trim()
         };
         
-        if (!formData.name || formData.name.length < 2) {
-            showNotification('Пожалуйста, введите ваше имя (минимум 2 символа)');
-            return;
+        clearErrors();
+        
+        let hasError = false;
+        
+        if (!formData.name) {
+            showFieldError(nameInput, 'Пожалуйста, введите ваше имя');
+            hasError = true;
         }
         
-        if (!formData.contact || formData.contact.length < 5) {
-            showNotification('Пожалуйста, введите телефон или email');
-            return;
+        if (!formData.contact) {
+            showFieldError(contactInput, 'Пожалуйста, введите телефон или email');
+            hasError = true;
         }
         
-        if (!formData.message || formData.message.length < 10) {
-            showNotification('Сообщение должно содержать минимум 10 символов');
-            return;
+        if (!formData.message) {
+            showFieldError(messageInput, 'Пожалуйста, напишите сообщение');
+            hasError = true;
         }
+        
+        if (hasError) return;
         
         const submitBtn = form.querySelector('.btn-submit');
         const originalText = submitBtn.textContent;
@@ -56,32 +63,68 @@ document.addEventListener('DOMContentLoaded', function() {
             const result = await response.json();
             
             if (response.ok) {
-                showNotification('Спасибо! Ваша заявка принята. Мы свяжемся с вами в ближайшее время.');
+                showNotification('Спасибо! Ваша заявка принята.', 'success');
                 form.reset();
                 submitBtn.textContent = 'Отправлено!';
                 submitBtn.style.background = '#22C55E';
                 
-                setTimeout(() => {
+                setTimeout(function() {
                     submitBtn.textContent = originalText;
                     submitBtn.style.background = '';
                     submitBtn.disabled = false;
                 }, 3000);
             } else {
-                const errorMsg = result.detail || 'Произошла ошибка. Попробуйте позже.';
-                showNotification('Ошибка: ' + errorMsg);
+                let errorMessage = 'Произошла ошибка. Попробуйте позже.';
+                
+                if (result.detail) {
+                    if (Array.isArray(result.detail)) {
+                        errorMessage = result.detail.map(function(err) {
+                            return err.msg || err.message || JSON.stringify(err);
+                        }).join(', ');
+                    } else if (typeof result.detail === 'string') {
+                        errorMessage = result.detail;
+                    } else {
+                        errorMessage = JSON.stringify(result.detail);
+                    }
+                }
+                
+                showNotification('Ошибка: ' + errorMessage, 'error');
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
             }
         } catch (error) {
             console.error('Ошибка отправки:', error);
-            showNotification('Ошибка соединения с сервером. Проверьте, запущен ли бэкенд.');
+            showNotification('Ошибка соединения с сервером. Проверьте, запущен ли бэкенд.', 'error');
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
         }
     });
 });
 
-function showNotification(message) {
+function showFieldError(input, message) {
+    input.style.borderColor = '#EF4444';
+    input.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.15)';
+    
+    const existingError = input.parentElement.querySelector('.field-error');
+    if (existingError) existingError.remove();
+    
+    const error = document.createElement('div');
+    error.className = 'field-error';
+    error.textContent = message;
+    input.parentElement.appendChild(error);
+}
+
+function clearErrors() {
+    document.querySelectorAll('.field-error').forEach(function(el) {
+        el.remove();
+    });
+    document.querySelectorAll('.feedback-form input, .feedback-form textarea').forEach(function(el) {
+        el.style.borderColor = '';
+        el.style.boxShadow = '';
+    });
+}
+
+function showNotification(message, type) {
     const existing = document.querySelector('.toast-notification');
     if (existing) existing.remove();
     
@@ -90,10 +133,14 @@ function showNotification(message) {
     notification.textContent = message;
     document.body.appendChild(notification);
     
-    setTimeout(() => notification.classList.add('show'), 10);
+    setTimeout(function() {
+        notification.classList.add('show');
+    }, 10);
     
-    setTimeout(() => {
+    setTimeout(function() {
         notification.classList.remove('show');
-        setTimeout(() => notification.remove(), 400);
+        setTimeout(function() {
+            notification.remove();
+        }, 400);
     }, 5000);
 }

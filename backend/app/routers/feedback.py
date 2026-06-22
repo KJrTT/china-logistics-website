@@ -42,10 +42,27 @@ async def create_feedback(
                 logger.error(f"Failed to send confirmation: {e}")
         
         return db_feedback
-        
+
     except Exception as e:
-        logger.error(f"Error creating feedback: {e}")
+        error_str = str(e)
+        logger.error(f"Error creating feedback: {error_str}")
+        if "Value error" in error_str or "value_error" in error_str.lower():
+            cleaned = error_str.replace("Value error, ", "")
+            if cleaned.startswith("[") or cleaned.startswith("{"):
+                import re
+                msgs = re.findall(r"'msg':\s*'([^']+)'", error_str)
+                if not msgs:
+                    msgs = re.findall(r"Value error,\s*([^,]+)", error_str)
+                if msgs:
+                    cleaned = '; '.join([m.strip() for m in msgs])
+                else:
+                    cleaned = cleaned.replace("Value error, ", "").replace(", Value error, ", "; ")
+            
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                detail=cleaned.strip()
+            )
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Ошибка при создании заявки. Попробуйте позже."
+            detail="Внутренняя ошибка сервера"
         )

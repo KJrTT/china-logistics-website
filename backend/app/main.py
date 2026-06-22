@@ -1,4 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine, Base
 from app.routers import feedback
@@ -16,8 +18,20 @@ app = FastAPI(
     description="API для обработки заявок с сайта логистики",
     version="1.0.0"
 )
-# Ненавистные CORS-настройки 
-# CORS настройки - разрешаем запросы с фронтенда иначе не работает соединение между фронтом и бэком
+
+# Добавление глобального обработчика ошибок, тк без этого все ошибки не перехватывались сразу
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    error_messages = [error['msg'].replace("Value error, ", "") for error in exc.errors()]
+    error_message = '; '.join(error_messages)
+    
+    logging.error(f"Validation error: {error_message}")
+    return JSONResponse(
+        status_code=422,
+        content={"detail": error_message}
+    )
+
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
