@@ -18,8 +18,8 @@ class FeedbackCreate(BaseModel):
     def validate_contact(cls, v):
         v = v.strip()
         
-        if not v or len(v) < 5:
-            raise ValueError('Контакт должен содержать минимум 5 символов')
+        # if not v or len(v) < 5:
+        #     raise ValueError('Контакт должен содержать минимум 5 символов')
         
         email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
         phone_pattern = r'^(\+7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$'

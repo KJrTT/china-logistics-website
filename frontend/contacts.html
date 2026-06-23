@@ -132,23 +132,34 @@
         </div><!-- /container -->
     </main>
 
-    <!-- ===== Футер ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-info">
-                    <p class="footer-copy">&copy; 2026 <!-- Название компании предоставляется заказчиком -->. Все права защищены.</p>
+                    <p class="footer-copy">&copy; 2026. Все права защищены.</p>
                 </div>
                 <div class="footer-contacts">
                     <p>
-                        <a href="#"><!-- Телефон предоставляется заказчиком --></a> |
-                        <a href="#"><!-- Email предоставляется заказчиком --></a>
+                        <a href="#">+7 (XXX) XXX-XX-XX</a> |
+                        <a href="#">info@company.ru</a>
                     </p>
                 </div>
             </div>
         </div>
     </footer>
-    <script src="js/main.js"></script>
-    <script src="js/form-handler.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const messageParam = urlParams.get('message');
+            
+            if (messageParam) {
+                const messageField = document.getElementById('message');
+                const decodedMessage = decodeURIComponent(messageParam);
+                messageField.value = decodedMessage + '\n\n';
+                messageField.placeholder = 'Опишите детали вашего запроса...';
+            }
+        });
+    </script>
 </body>
 </html>
