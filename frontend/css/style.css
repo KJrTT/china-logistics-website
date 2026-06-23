@@ -85,6 +85,17 @@ p {
     background: #2563EB;
     color: white;
     box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
 .btn-primary:hover {
@@ -92,6 +103,10 @@ p {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
     text-decoration: none !important;
+}
+
+.btn-primary:hover::after {
+    opacity: 1;
 }
 
 .btn-outline {
@@ -132,15 +147,21 @@ p {
     text-decoration: none !important;
 }
 
-/* HEADER / НАВИГАЦИЯ */
+/* ============================================================
+   HEADER (НАШЕ УЛУЧШЕНИЕ — ПРОЗРАЧНЫЙ С БЛЮРОМ)
+   ============================================================ */
 .header {
-    background: white;
-    border-bottom: 1px solid #E2E8F0;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.3);
     position: sticky;
     top: 0;
     z-index: 100;
-    backdrop-filter: blur(0);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
 }
 
 .header .container {
@@ -148,13 +169,15 @@ p {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    padding: 1rem 32px;
+    padding: 0.5rem 32px;
+    width: 100%;
 }
 
 .logo-img {
-    height: 48px;
+    height: 90px;
     width: auto;
     object-fit: contain;
+    display: block;
 }
 
 .nav-list {
@@ -503,7 +526,9 @@ p {
     color: #94A3B8;
 }
 
-/* СТРАНИЦА "УСЛУГИ" */
+/* ============================================================
+   СТРАНИЦА "УСЛУГИ" (АКТУАЛЬНАЯ ВЕРСИЯ + НАШИ ФИКСЫ)
+   ============================================================ */
 .services-page {
     padding: 1rem 0 2rem;
 }
@@ -555,7 +580,7 @@ p {
 }
 
 .service-list li::before {
-    content: '_';
+    content: '—';
     color: #2563EB;
     font-weight: 700;
     flex-shrink: 0;
@@ -670,8 +695,48 @@ p {
     justify-content: center;
 }
 
+/* ГИБКИЙ БЛОК */
+.flexible-block {
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    margin: 0 0 2.5rem 0;
+}
+
+.flexible-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.flexible-title {
+    font-size: 1.2rem;
+    color: #1E40AF;
+    margin: 0 0 0.4rem 0;
+    font-weight: 700;
+}
+
+.flexible-text {
+    font-size: 1.05rem;
+    color: #1E40AF;
+    margin: 0;
+}
+
+.flexible-highlight {
+    color: #2563EB;
+}
+
 /* СТРАНИЦА "ПРЕИМУЩЕСТВА" */
 .section-subtitle {
+    text-align: center;
+    max-width: 640px;
+    margin: -1rem auto 2.5rem;
+    color: #64748B;
+    font-size: 1.1rem;
+}
+
+.process-subtitle {
     text-align: center;
     max-width: 640px;
     margin: -1rem auto 2.5rem;
@@ -697,6 +762,8 @@ p {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
     border: 1px solid #EFF3F8;
     transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .advantage-card:hover {
@@ -714,26 +781,33 @@ p {
     color: #475569;
     font-size: 0.95rem;
     line-height: 1.6;
+    flex: 1;
+    margin-bottom: 0;
 }
 
 .advantage-icon {
     width: 64px;
     height: 64px;
-    margin-bottom: 1rem;
+    margin: 0 auto 1rem;
 }
 
 .advantage-icon:not([src]) {
     background: #DBEAFE;
     border-radius: 60px;
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.process-subtitle {
-    text-align: center;
-    max-width: 640px;
-    margin: -1rem auto 2.5rem;
-    color: #64748B;
-    font-size: 1.1rem;
+/* Анимации для преимуществ */
+.advantage-card:hover .advantage-icon {
+    transform: scale(1.08);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.advantage-card:hover .advantage-icon svg {
+    transform: rotate(6deg) scale(1.05);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* ПРОЦЕСС РАБОТЫ */
@@ -803,12 +877,10 @@ p {
     max-width: 100%;
 }
 
-/* Линия-связка между шагами */
 @media (min-width: 992px) {
     .process-grid {
         position: relative;
     }
-
     .process-grid::before {
         content: '';
         position: absolute;
@@ -819,7 +891,6 @@ p {
         background: #E2E8F0;
         z-index: 0;
     }
-
     .process-step {
         background: white;
         z-index: 1;
@@ -887,32 +958,37 @@ p {
     margin: 0 auto 2rem;
 }
 
-/* ИНФОГРАФИКА (ЦИФРЫ) */
+/* ============================================================
+   ИНФОГРАФИКА (ЦИФРЫ) — НАШЕ УЛУЧШЕНИЕ
+   ============================================================ */
+.stats-section {
+    padding: 2rem 0;
+    background: transparent;
+}
+
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
+    gap: 1.5rem;
     max-width: 900px;
     margin: 0 auto;
 }
 
 .stat-item {
-    background: white;
-    padding: 2rem 1rem;
-    border-radius: 20px;
     text-align: center;
-    border: 1px solid #EFF3F8;
+    padding: 1.25rem 0.75rem;
+    border-radius: 16px;
+    background: transparent;
+    border: none;
     transition: all 0.3s ease;
 }
 
 .stat-item:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.08);
-    border-color: #CBD5E1;
 }
 
 .stat-number {
-    font-size: 2.5rem;
+    font-size: 2.6rem;
     font-weight: 700;
     color: #2563EB;
     line-height: 1.2;
@@ -921,8 +997,8 @@ p {
 .stat-label {
     font-size: 0.9rem;
     color: #64748B;
-    max-width: 100%;
     margin-top: 0.25rem;
+    max-width: 100%;
 }
 
 /* ФУТЕР */
@@ -971,6 +1047,31 @@ p {
     opacity: 0.7;
     margin-top: 0.5rem;
     width: 100%;
+}
+
+/* Карта в футере */
+.footer-map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #94A3B8;
+    text-decoration: none;
+    transition: color 0.2s;
+    font-size: 0.9rem;
+}
+
+.footer-map-link:hover {
+    color: #3B82F6;
+}
+
+.footer-map-link svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 /* ГЛАВНАЯ СТРАНИЦА */
@@ -1022,7 +1123,6 @@ p {
     margin-top: 2.5rem;
 }
 
-/* ГЛАВНАЯ - ПРЕИМУЩЕСТВА КРАТКО */
 .advantages-short {
     padding: 4rem 0;
     background: #F8FAFC;
@@ -1065,7 +1165,6 @@ p {
     margin-top: 2.5rem;
 }
 
-/* ГЛАВНАЯ - ПРОЦЕСС КРАТКО */
 .process-short {
     padding: 4rem 0;
     background: white;
@@ -1220,38 +1319,6 @@ p {
     margin: 2rem 0;
 }
 
-/* ГИБКИЙ БЛОК */
-.flexible-block {
-    background: #EFF6FF;
-    border: 1px solid #BFDBFE;
-    border-radius: 16px;
-    padding: 2rem 1.5rem;
-    margin: 0 0 2.5rem 0;
-}
-
-.flexible-inner {
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.flexible-title {
-    font-size: 1.2rem;
-    color: #1E40AF;
-    margin: 0 0 0.4rem 0;
-    font-weight: 700;
-}
-
-.flexible-text {
-    font-size: 1.05rem;
-    color: #1E40AF;
-    margin: 0;
-}
-
-.flexible-highlight {
-    color: #2563EB;
-}
-
 /* УВЕДОМЛЕНИЯ */
 .field-error {
     color: #EF4444;
@@ -1327,9 +1394,49 @@ p {
 }
 
 /* ============================================================
-   АДАПТИВНОСТЬ
+   НАШИ МИКРО-УЛУЧШЕНИЯ (АНИМАЦИИ)
    ============================================================ */
 
+/* Плавное появление секций */
+section:not(.hero):not(.header) {
+    animation: fadeUp 0.8s ease forwards;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Плавное появление заголовков */
+.page-header h1 {
+    animation: fadeDown 0.8s ease forwards;
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Плавный скролл */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ============================================================
+   АДАПТИВНОСТЬ
+   ============================================================ */
 @media (max-width: 1024px) {
     .contacts-grid {
         grid-template-columns: 1fr 1fr;
