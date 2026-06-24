@@ -308,6 +308,31 @@ frontend/index.html
 
 или использовать локальный веб-сервер.
 
+## Переменные окружения
+Перед запуском backend необходимо создать файл `.env`.
+
+Пример содержимого:
+
+```
+DATABASE_URL=postgresql://username:password@localhost:5432/china_logistics
+
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=example@gmail.com
+SMTP_PASSWORD=your_password
+
+MANAGER_EMAIL=manager@example.com
+```
+### Назначение переменных
+
+| Переменная | Описание |
+|------------|-----------|
+| DATABASE_URL | Строка подключения к PostgreSQL |
+| SMTP_HOST | SMTP-сервер для отправки писем |
+| SMTP_PORT | Порт SMTP-сервера |
+| SMTP_USER | Email-аккаунт отправителя |
+| SMTP_PASSWORD | Пароль приложения или SMTP-пароль |
+| MANAGER_EMAIL | Email менеджера для получения заявок |
 ---
 
 ## Демонстрация проекта
