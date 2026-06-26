@@ -9,8 +9,190 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+
+    <style>
+        #preloader {
+            position: fixed;
+            inset: 0;
+            background: #0F172A;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #preloader.hidden-fast {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.01s ease, visibility 0.01s ease;
+        }
+
+        .preloader-map {
+            width: 320px;
+            height: 240px;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: preloaderFade 1s ease forwards 0.3s;
+        }
+
+        .preloader-map svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .preloader-map .map-line {
+            stroke-dasharray: 300;
+            stroke-dashoffset: 300;
+            animation: drawLine 2s ease forwards 0.6s;
+        }
+
+        .preloader-map .map-dot {
+            opacity: 0;
+            animation: dotAppear 0.6s ease forwards 2.2s;
+        }
+
+        .preloader-map .map-dot2 {
+            opacity: 0;
+            animation: dotAppear 0.6s ease forwards 2.6s;
+        }
+
+        .preloader-map .map-label {
+            opacity: 0;
+            animation: labelAppear 0.6s ease forwards 2.8s;
+        }
+
+        @keyframes drawLine {
+            to { stroke-dashoffset: 0; }
+        }
+
+        @keyframes dotAppear {
+            to { opacity: 1; }
+        }
+
+        @keyframes labelAppear {
+            to { opacity: 0.5; }
+        }
+
+        @keyframes preloaderFade {
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .preloader-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 0.08em;
+            opacity: 0;
+            animation: preloaderFade 1.2s ease forwards 0.6s;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .preloader-text .highlight {
+            color: #2563EB;
+        }
+
+        .preloader-sub {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+            color: #64748B;
+            margin-top: 0.5rem;
+            letter-spacing: 0.15em;
+            opacity: 0;
+            animation: preloaderFade 1.2s ease forwards 1s;
+        }
+
+        .preloader-dot {
+            display: inline-block;
+            animation: dotPulse 1.4s ease-in-out infinite;
+        }
+        .preloader-dot:nth-child(2) { animation-delay: 0.2s; }
+        .preloader-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes dotPulse {
+            0%, 80%, 100% { opacity: 0; transform: scale(0.8); }
+            40% { opacity: 1; transform: scale(1); }
+        }
+
+        .preloader-line {
+            width: 240px;
+            height: 2px;
+            background: #1E293B;
+            border-radius: 2px;
+            margin-top: 1.5rem;
+            overflow: hidden;
+            opacity: 0;
+            animation: preloaderFade 1.2s ease forwards 1.3s;
+        }
+
+        .preloader-line-inner {
+            width: 30%;
+            height: 100%;
+            background: linear-gradient(90deg, #2563EB, #3B82F6);
+            border-radius: 2px;
+            animation: lineMove 1.8s ease-in-out infinite;
+        }
+
+        @keyframes lineMove {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(400%); }
+        }
+    </style>
 </head>
 <body>
+    <div id="preloader">
+        <div class="preloader-map">
+            <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="400" height="300" rx="16" fill="#1E293B" opacity="0.5"/>
+                <path d="M60 90 L100 70 L150 55 L200 60 L250 75 L290 70 L340 90 L330 120 L300 135 L250 125 L210 140 L170 130 L130 145 L90 135 L50 120 Z"
+                      stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/>
+                <path d="M50 160 L90 145 L140 150 L180 170 L230 165 L280 175 L300 200 L260 225 L200 215 L140 230 L90 220 L50 200 Z"
+                      stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/>
+                <line x1="170" y1="130" x2="170" y2="185" stroke="#2563EB" stroke-width="3" class="map-line"/>
+                <circle cx="170" cy="120" r="7" fill="#2563EB" stroke="#0F172A" stroke-width="2" class="map-dot"/>
+                <circle cx="170" cy="195" r="7" fill="#2563EB" stroke="#0F172A" stroke-width="2" class="map-dot2"/>
+                <text x="130" y="112" fill="#F1F5F9" font-size="10" font-weight="600" class="map-label">Забайкальск</text>
+                <text x="130" y="215" fill="#F1F5F9" font-size="10" font-weight="600" class="map-label">Маньчжурия</text>
+                <line x1="170" y1="143" x2="170" y2="170" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="4 4" class="map-line"/>
+                <text x="65" y="80" fill="rgba(255,255,255,0.15)" font-size="14" font-weight="700" class="map-label">РОССИЯ</text>
+                <text x="55" y="170" fill="rgba(255,255,255,0.15)" font-size="14" font-weight="700" class="map-label">КИТАЙ</text>
+                <rect x="5" y="5" width="390" height="290" rx="12" stroke="rgba(255,255,255,0.04)" stroke-width="1" fill="none"/>
+            </svg>
+        </div>
+        <div class="preloader-text">
+            Забайкальск<span class="preloader-dot">.</span><span class="preloader-dot">.</span><span class="preloader-dot">.</span>
+            <span class="highlight">Маньчжурия</span>
+        </div>
+        <div class="preloader-sub">Граница России и Китая</div>
+        <div class="preloader-line">
+            <div class="preloader-line-inner"></div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', function() {
+            const hasVisited = localStorage.getItem('hasVisited');
+
+            if (hasVisited) {
+                document.getElementById('preloader').classList.add('hidden-fast');
+            } else {
+                setTimeout(function() {
+                    document.getElementById('preloader').classList.add('hidden');
+                    localStorage.setItem('hasVisited', 'true');
+                }, 5000);
+            }
+        });
+    </script>
 
     <header class="header">
         <div class="container">
@@ -32,14 +214,19 @@
     <section class="hero">
         <div class="container">
             <h1 class="hero-title">
-                Поставки из Китая<br />
-                <span class="hero-highlight">под ключ</span>
+                Комплексные и точечные решения<br />
+                <span class="hero-highlight">для доставки грузов из Китая</span>
             </h1>
             <p class="hero-subtitle">
-                Поиск поставщиков · Логистика · Таможенное оформление · Представительство интересов
+                Профессиональный подход и <strong>выгодное территориальное расположение</strong> на границе — ваша гарантия оптимальной логистики
             </p>
+            <div class="hero-divider">
+                <span class="hero-divider-line"></span>
+                <span class="hero-divider-dot">●</span>
+                <span class="hero-divider-line"></span>
+            </div>
             <p class="hero-description">
-                Минимизируем риски, оптимизируем стоимость и сокращаем сроки доставки вашего груза
+                Поиск поставщиков · Логистика · Таможенное оформление · Представительство интересов
             </p>
             <a href="contacts.html#feedback" class="btn btn-primary hero-btn">
                 Заказать консультацию

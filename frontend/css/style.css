@@ -223,8 +223,8 @@ p {
 
 .hero-title {
     font-size: 3.8rem;
-    font-weight: 700;
-    max-width: 800px;
+    font-weight: 500;
+    max-width: 1000px;
     margin: 0 auto 0.5rem;
     color: #0F172A;
     line-height: 1.15;
@@ -237,11 +237,12 @@ p {
 
 .hero-subtitle {
     font-size: 1.2rem;
-    max-width: 700px;
-    margin: 0.5rem auto 1.5rem;
+    max-width: 720px;
+    margin: 0.75rem auto 1.5rem;
     color: #475569;
     font-weight: 400;
     letter-spacing: 0.02em;
+    line-height: 1.6;
 }
 
 .hero-description {
@@ -264,6 +265,43 @@ p {
     box-shadow: 0 8px 28px rgba(37, 99, 235, 0.35);
 }
 
+.hero-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 1.25rem auto 1.5rem;
+    max-width: 160px;
+}
+
+.hero-divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #CBD5E1, transparent);
+}
+
+.hero-divider-dot {
+    color: #000000;
+    font-size: 0.5rem;
+    animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* Адаптив для разделителя */
+@media (max-width: 640px) {
+    .hero-divider {
+        max-width: 120px;
+        gap: 0.5rem;
+        margin: 1rem auto 1.25rem;
+    }
+    .hero-divider-dot {
+        font-size: 0.4rem;
+    }
+}
 /* ХЛЕБНЫЕ КРОШКИ (BREADCRUMBS) */
 .breadcrumbs {
     background: #F8FAFC;
@@ -2220,3 +2258,5 @@ html {
         max-width: 260px;
     }
 }
+
+
